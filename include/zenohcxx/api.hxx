@@ -257,6 +257,10 @@ struct KeyExprView : public Copyable<::z_keyexpr_t> {
     KeyExprView(const char* name, z::KeyExprUnchecked) : Copyable(::z_keyexpr_unchecked(name)) {
         assert(keyexpr_is_canon(name));
     }
+    KeyExprView(const std::string& name) : Copyable(::z_keyexpr(name.c_str())) {}
+    KeyExprView(const std::string& name, z::KeyExprUnchecked) : Copyable(::z_keyexpr_unchecked(name.c_str())) {
+        assert(keyexpr_is_canon(name));
+    }
 #ifdef __ZENOHCXX_ZENOHC
     KeyExprView(const std::string_view& name) : Copyable(::zc_keyexpr_from_slice(name.data(), name.length())) {}
     KeyExprView(const std::string_view& name, z::KeyExprUnchecked)
